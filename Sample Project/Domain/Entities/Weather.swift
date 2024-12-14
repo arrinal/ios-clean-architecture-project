@@ -1,6 +1,6 @@
 import Foundation
 
-struct Weather: Identifiable {
+struct Weather: Identifiable, Codable {
     let id: UUID = UUID()
     let cityName: String
     let temperature: Double

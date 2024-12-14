@@ -8,6 +8,7 @@ class DIContainer {
     private init() {
         registerServices()
         registerRepositories()
+        registerStorage()
         registerUseCases()
         registerViewModels()
     }
@@ -25,6 +26,12 @@ class DIContainer {
         }.inObjectScope(.container)
     }
     
+    private func registerStorage() {
+        container.register(WeatherStorage.self) { _ in
+            UserDefaultsWeatherStorage()
+        }.inObjectScope(.container)
+    }
+    
     private func registerUseCases() {
         container.register(FetchWeatherUseCase.self) { resolver in
             let repository = resolver.resolve(WeatherRepository.self)!
@@ -36,7 +43,8 @@ class DIContainer {
         // Register WeatherListViewModel
         container.register(WeatherListViewModel.self) { resolver in
             let useCase = resolver.resolve(FetchWeatherUseCase.self)!
-            return WeatherListViewModel(fetchWeatherUseCase: useCase)
+            let storage = resolver.resolve(WeatherStorage.self)!
+            return WeatherListViewModel(fetchWeatherUseCase: useCase, storage: storage)
         }
         
         // Register WeatherStatisticsViewModel with parameters

@@ -20,11 +20,6 @@ struct WeatherListView: View {
             .refreshable {
                 viewModel.refresh()
             }
-            .overlay {
-                if viewModel.isLoading {
-                    ProgressView()
-                }
-            }
             .navigationTitle("Weather")
             .toolbar {
                 Button {
