@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		70189C432D0CAC97007E11F0 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 70189C422D0CAC97007E11F0 /* Swinject */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		7004A0862D0C9C6D00351C15 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -22,6 +26,19 @@
 			remoteInfo = "Sample Project";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		70189C472D0CAC97007E11F0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7004A0732D0C9C6C00351C15 /* Sample Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70189C432D0CAC97007E11F0 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +96,7 @@
 				7004A0752D0C9C6C00351C15 /* Sample Project */,
 				7004A0882D0C9C6D00351C15 /* Sample ProjectTests */,
 				7004A0922D0C9C6D00351C15 /* Sample ProjectUITests */,
+				70189C412D0CAC97007E11F0 /* Frameworks */,
 				7004A0742D0C9C6C00351C15 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +111,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		70189C412D0CAC97007E11F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,6 +128,7 @@
 				7004A06F2D0C9C6C00351C15 /* Sources */,
 				7004A0702D0C9C6C00351C15 /* Frameworks */,
 				7004A0712D0C9C6C00351C15 /* Resources */,
+				70189C472D0CAC97007E11F0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -112,6 +139,7 @@
 			);
 			name = "Sample Project";
 			packageProductDependencies = (
+				70189C422D0CAC97007E11F0 /* Swinject */,
 			);
 			productName = "Sample Project";
 			productReference = 7004A0732D0C9C6C00351C15 /* Sample Project.app */;
@@ -195,6 +223,9 @@
 			);
 			mainGroup = 7004A06A2D0C9C6C00351C15;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				70189C402D0CAC09007E11F0 /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7004A0742D0C9C6C00351C15 /* Products */;
 			projectDirPath = "";
@@ -412,7 +443,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.arrinal.Sample-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -441,7 +472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.arrinal.Sample-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -558,6 +589,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		70189C402D0CAC09007E11F0 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		70189C422D0CAC97007E11F0 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70189C402D0CAC09007E11F0 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7004A06B2D0C9C6C00351C15 /* Project object */;
 }
