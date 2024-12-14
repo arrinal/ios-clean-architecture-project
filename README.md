@@ -1,122 +1,126 @@
 # Weather App - Clean Architecture with SwiftUI
 
-A simple weather application that demonstrates clean architecture principles, SOLID, and modern iOS development practices.
+A weather application built using SwiftUI and following Clean Architecture principles. The app demonstrates the implementation of SOLID principles, dependency injection, and reactive programming with Combine.
 
-## Architecture Overview
+## Features
 
-This project follows Clean Architecture principles with the following layers:
+- View weather information for multiple cities
+- Add new cities through search
+- View detailed weather information including hourly forecasts
+- View weather statistics (temperature, humidity, wind speed)
+- Persistent storage of favorite cities
+- Offline support for previously loaded cities
 
-1. **Presentation Layer (UI)**
-   - SwiftUI Views
-   - ViewModels
-   - UI Models
+## Architecture
 
-2. **Domain Layer**
-   - Use Cases
-   - Domain Models
-   - Repository Interfaces
+The project follows Clean Architecture principles with the following layers:
 
-3. **Data Layer**
-   - Repositories Implementation
-   - API Services
-   - Data Models
+### Domain Layer
+- Contains business logic and entities
+- Independent of other layers
+- Located in `/Domain` directory
+  - `/Entities`: Core business models
+  - `/Interfaces`: Protocols defining boundaries
+  - `/UseCases`: Business logic implementations
 
-## Key Features
+### Data Layer
+- Implements data operations
+- Located in `/Data` directory
+  - `/Network`: API services
+  - `/Models`: Data transfer objects
+  - `/Repositories`: Repository implementations
+  - `/Storage`: Local storage implementations
 
-- Clean Architecture implementation
-- SOLID principles
-- Dependency Injection using Swinject
-- Reactive Programming with Combine
-- Network API integration with OpenWeatherMap
-- Modular Design
+### Presentation Layer
+- Contains UI-related code
+- Located in `/Presentation` directory
+  - `/Screens`: SwiftUI views
+  - `/ViewModels`: Presentation logic
 
-## Project Structure
-
-```
-WeatherApp/
-├── Application/
-│   └── DIContainer
-├── Presentation/
-│   ├── Screens/
-│   │   ├── WeatherList/
-│   │   ├── WeatherDetail/
-│   │   └── AddCity/
-│   └── Components/
-├── Domain/
-│   ├── Entities/
-│   ├── UseCases/
-│   └── Interfaces/
-└── Data/
-    ├── Repositories/
-    ├── Network/
-    └── Models/
-```
-
-## Screens
-
-1. **Weather List**
-   - Displays a list of cities with their current weather
-   - Pull to refresh functionality
-   - Navigation to detail view
-
-2. **Weather Detail**
-   - Shows detailed weather information for a selected city
-   - Displays temperature, humidity, wind speed, etc.
-   - 24-hour forecast
-
-3. **Add City**
-   - Search for cities
-   - Add cities to tracking list
+### Application Layer
+- Contains app-wide configurations
+- Located in `/Application` directory
+  - Dependency injection setup
+  - App lifecycle management
 
 ## Dependencies
 
-- Swinject for Dependency Injection
-- Combine for Reactive Programming
+- **SwiftUI**: UI framework
+- **Combine**: Reactive programming
+- **Swinject**: Dependency injection
+- **OpenWeatherMap API**: Weather data source
+
+## Key Design Decisions
+
+1. **Clean Architecture**
+   - Clear separation of concerns
+   - Dependencies point inward
+   - Domain layer is independent
+
+2. **Dependency Injection**
+   - Using Swinject for DI
+   - Centralized container management
+   - Easy testing and modification
+
+3. **Reactive Programming**
+   - Using Combine for async operations
+   - Reactive data flow
+   - Error handling
+
+4. **Local Storage**
+   - UserDefaults for city persistence
+   - Offline-first approach
+   - Automatic saving of added cities
 
 ## Getting Started
 
 1. Clone the repository
-2. Open `Sample Project.xcodeproj`
+2. Replace the API key in `WeatherAPIServiceImpl` with your OpenWeatherMap API key
 3. Build and run the project
 
-## Clean Architecture Flow
+## Requirements
 
-1. **User Action Flow**
-   - User interacts with View
-   - View notifies ViewModel
-   - ViewModel executes Use Case
-   - Use Case works with Repository
-   - Repository fetches data from API/Local Storage
-   - Data flows back through the chain
+- iOS 15.0+
+- Xcode 13.0+
+- Swift 5.5+
 
-2. **Data Flow**
-   - API → Data Models → Domain Models → UI Models → View
+## Project Structure
 
-## SOLID Principles Implementation
+```
+Sample Project/
+├── Application/
+│   └── DIContainer.swift
+├── Data/
+│   ├── Network/
+│   │   └── WeatherAPIService.swift
+│   ├── Models/
+│   │   ├── CityResponse.swift
+│   │   └── WeatherResponse.swift
+│   ├── Repositories/
+│   │   └── WeatherRepositoryImpl.swift
+│   └── Storage/
+│       └── UserDefaultsWeatherStorage.swift
+├── Domain/
+│   ├── Entities/
+│   │   └── Weather.swift
+│   ├── Interfaces/
+│   │   ├── WeatherRepository.swift
+│   │   ├── WeatherStorage.swift
+│   │   └── FetchWeatherUseCase.swift
+│   └── UseCases/
+│       └── FetchWeatherUseCaseImpl.swift
+└── Presentation/
+    ├── Screens/
+    │   ├── AddCity/
+    │   ├── WeatherDetail/
+    │   ├── WeatherList/
+    │   └── WeatherStatistics/
+    └── ViewModels/
+        ├── WeatherDetailViewModel.swift
+        ├── WeatherListViewModel.swift
+        └── WeatherStatisticsViewModel.swift
+```
 
-1. **Single Responsibility**
-   - Each class has one specific purpose
-   - Clear separation of concerns
+## License
 
-2. **Open/Closed**
-   - Use protocols for extensibility
-   - New features can be added without modifying existing code
-
-3. **Liskov Substitution**
-   - All implementations can replace their abstractions
-
-4. **Interface Segregation**
-   - Small, specific protocols instead of large ones
-
-5. **Dependency Inversion**
-   - High-level modules don't depend on low-level modules
-   - Both depend on abstractions
-
-## Best Practices
-
-- Protocol-oriented programming
-- Dependency injection
-- Reactive programming with Combine
-- SwiftUI best practices
-- Error handling
-- Unit testing ready structure
+This project is available under the MIT license.
