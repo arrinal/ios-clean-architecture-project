@@ -10,11 +10,11 @@ extension WeatherEndpoint: Endpoint {
     var path: String {
         switch self {
         case .currentWeather:
-            return "/weather/current-weather"
+            return "/openweathermap.org/current-weather"
         case .weatherDetail:
-            return "/weather/forecast"
+            return "/openweathermap.org/current-forecast"
         case .searchCities:
-            return "/weather/search"
+            return "/openweathermap.org/search-city"
         }
     }
     

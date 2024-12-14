@@ -33,20 +33,20 @@ enum NetworkError: LocalizedError {
 }
 
 protocol BaseService {
-    func request<T: Codable, B: Encodable>(_ endpoint: Endpoint,
-                                          body: B?) -> AnyPublisher<T, NetworkError>
-    
+    var baseURL: String { get }
     func request<T: Codable>(_ endpoint: Endpoint) -> AnyPublisher<T, NetworkError>
+    func request<T: Codable, B: Encodable>(_ endpoint: Endpoint, body: B?) -> AnyPublisher<T, NetworkError>
 }
 
 extension BaseService {
+    var baseURL: String { "http://localhost:8080/api/v1" }
+    
     func request<T: Codable>(_ endpoint: Endpoint) -> AnyPublisher<T, NetworkError> {
         request(endpoint, body: Optional<String>.none)
     }
     
-    func request<T: Codable, B: Encodable>(_ endpoint: Endpoint,
-                                          body: B?) -> AnyPublisher<T, NetworkError> {
-        var components = URLComponents(string: "http://localhost:8080/api/v1" + endpoint.path)
+    func request<T: Codable, B: Encodable>(_ endpoint: Endpoint, body: B?) -> AnyPublisher<T, NetworkError> {
+        var components = URLComponents(string: baseURL + endpoint.path)
         components?.queryItems = endpoint.queryItems
         
         guard let url = components?.url else {
