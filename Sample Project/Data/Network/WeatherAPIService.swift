@@ -14,17 +14,15 @@ protocol WeatherAPIService {
     func searchCities(query: String) -> AnyPublisher<[CityResponse], Error>
 }
 
-class WeatherAPIServiceImpl: WeatherAPIService {
+class WeatherAPIServiceImpl: BaseService, WeatherAPIService {
+    // OpenWeatherMap endpoints (for direct calls)
     private let weatherBaseURL = "https://api.openweathermap.org/data/2.5"
     private let geoBaseURL = "https://api.openweathermap.org/geo/1.0"
     private let apiKey = "d8f0fbba1d25bb2c195c9680a4dbc57d" // Replace with actual API key
     
     func fetchWeather(lat: Double, lon: Double) -> AnyPublisher<WeatherResponse, Error> {
-        let url = URL(string: "\(weatherBaseURL)/weather?lat=\(lat)&lon=\(lon)&appid=\(apiKey)&units=metric")!
-        
-        return URLSession.shared.dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: WeatherResponse.self, decoder: JSONDecoder())
+        request(WeatherEndpoint.currentWeather(lat: lat, lon: lon))
+            .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
     
