@@ -21,6 +21,22 @@ struct WeatherDetailView: View {
                     // Current Weather
                     CurrentWeatherView(weather: detail.currentWeather)
                     
+                    // Statistics Button
+                    NavigationLink {
+                        WeatherStatisticsView(cityName: cityName, lat: lat, lon: lon)
+                    } label: {
+                        HStack {
+                            Image(systemName: "chart.bar.fill")
+                            Text("View Statistics")
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                    }
+                    
                     // Hourly Forecast
                     VStack(alignment: .leading) {
                         Text("Hourly Forecast")

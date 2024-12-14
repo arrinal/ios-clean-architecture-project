@@ -9,15 +9,13 @@ import SwiftUI
 
 @main
 struct Sample_ProjectApp: App {
-    init() {
-        // Initialize dependency container
-        _ = DIContainer.shared
-    }
+    // Hold a reference to ensure DIContainer lives throughout app lifecycle
+    private let sharedContainer = DIContainer.shared
     
     var body: some Scene {
         WindowGroup {
             WeatherListView(
-                viewModel: DIContainer.shared.container.resolve(WeatherListViewModel.self)!
+                viewModel: sharedContainer.container.resolve(WeatherListViewModel.self)!
             )
         }
     }

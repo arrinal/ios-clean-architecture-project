@@ -33,9 +33,21 @@ class DIContainer {
     }
     
     private func registerViewModels() {
+        // Register WeatherListViewModel
         container.register(WeatherListViewModel.self) { resolver in
             let useCase = resolver.resolve(FetchWeatherUseCase.self)!
             return WeatherListViewModel(fetchWeatherUseCase: useCase)
+        }
+        
+        // Register WeatherStatisticsViewModel with parameters
+        container.register(WeatherStatisticsViewModel.self) { (resolver, cityName: String, lat: Double, lon: Double) in
+            let useCase = resolver.resolve(FetchWeatherUseCase.self)!
+            return WeatherStatisticsViewModel(
+                cityName: cityName,
+                lat: lat,
+                lon: lon,
+                fetchWeatherUseCase: useCase
+            )
         }
     }
 }
