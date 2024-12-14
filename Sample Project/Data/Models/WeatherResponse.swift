@@ -1,3 +1,10 @@
+//
+//  WeatherResponse.swift
+//  Sample Project
+//
+//  Created by Arrinal S on 14/12/24.
+//
+
 import Foundation
 
 struct WeatherResponse: Codable {

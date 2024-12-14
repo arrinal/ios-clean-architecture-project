@@ -1,12 +1,14 @@
+//
+//  UserDefaultsWeatherStorageImpl.swift
+//  Sample Project
+//
+//  Created by Arrinal S on 14/12/24.
+//
+
 import Foundation
 import Combine
 
-protocol WeatherStorage {
-    func saveCities(_ cities: [Weather]) -> AnyPublisher<Void, Error>
-    func loadCities() -> AnyPublisher<[Weather], Error>
-}
-
-class UserDefaultsWeatherStorage: WeatherStorage {
+class UserDefaultsWeatherStorageImpl: WeatherStorage {
     private let userDefaults: UserDefaults
     private let citiesKey = "saved_cities"
     private let decoder = JSONDecoder()

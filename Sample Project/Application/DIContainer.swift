@@ -1,3 +1,10 @@
+//
+//  DIContainer.swift
+//  Sample Project
+//
+//  Created by Arrinal S on 14/12/24.
+//
+
 import Foundation
 import Swinject
 
@@ -28,7 +35,7 @@ class DIContainer {
     
     private func registerStorage() {
         container.register(WeatherStorage.self) { _ in
-            UserDefaultsWeatherStorage()
+            UserDefaultsWeatherStorageImpl()
         }.inObjectScope(.container)
     }
     
@@ -47,15 +54,16 @@ class DIContainer {
             return WeatherListViewModel(fetchWeatherUseCase: useCase, storage: storage)
         }
         
-        // Register WeatherStatisticsViewModel with parameters
+        // Register WeatherDetailViewModel
+        container.register(WeatherDetailViewModel.self) { (resolver, cityName: String, lat: Double, lon: Double) in
+            let useCase = resolver.resolve(FetchWeatherUseCase.self)!
+            return WeatherDetailViewModel(cityName: cityName, lat: lat, lon: lon, fetchWeatherUseCase: useCase)
+        }
+        
+        // Register WeatherStatisticsViewModel
         container.register(WeatherStatisticsViewModel.self) { (resolver, cityName: String, lat: Double, lon: Double) in
             let useCase = resolver.resolve(FetchWeatherUseCase.self)!
-            return WeatherStatisticsViewModel(
-                cityName: cityName,
-                lat: lat,
-                lon: lon,
-                fetchWeatherUseCase: useCase
-            )
+            return WeatherStatisticsViewModel(cityName: cityName, lat: lat, lon: lon, fetchWeatherUseCase: useCase)
         }
     }
 }

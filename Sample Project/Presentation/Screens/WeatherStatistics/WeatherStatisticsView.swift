@@ -1,3 +1,10 @@
+//
+//  WeatherStatisticsView.swift
+//  Sample Project
+//
+//  Created by Arrinal S on 14/12/24.
+//
+
 import SwiftUI
 
 struct WeatherStatisticsView: View {
