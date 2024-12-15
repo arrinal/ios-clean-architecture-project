@@ -1,5 +1,5 @@
 //
-//  WeatherAPIServiceTests.swift
+//  OpenWeatherMapServiceTests.swift
 //  Sample ProjectTests
 //
 //  Created by Arrinal S on 14/12/24.
@@ -10,12 +10,12 @@ import Foundation
 import Combine
 @testable import Sample_Project
 
-@Suite("WeatherAPIService Tests")
-struct WeatherAPIServiceTests {
+@Suite("OpenWeatherMapService Tests")
+struct OpenWeatherMapServiceTests {
     
     @Test("Successfully fetch weather")
     func testFetchWeather() async throws {
-        let service = MockWeatherAPIService()
+        let service = MockOpenWeatherMapService()
         
         let weather = try await service.fetchWeather(lat: 0, lon: 0).async()
         
@@ -29,7 +29,7 @@ struct WeatherAPIServiceTests {
     
     @Test("Failed to fetch weather")
     func testFetchWeatherFailed() async throws {
-        let service = MockWeatherAPIService(shouldFail: true)
+        let service = MockOpenWeatherMapService(shouldFail: true)
         
         await #expect(throws: WeatherError.fetchFailed) {
             _ = try await service.fetchWeather(lat: 0, lon: 0).async()
@@ -38,7 +38,7 @@ struct WeatherAPIServiceTests {
     
     @Test("Successfully fetch weather detail")
     func testFetchWeatherDetail() async throws {
-        let service = MockWeatherAPIService()
+        let service = MockOpenWeatherMapService()
         
         let detail = try await service.fetchWeatherDetail(lat: 0, lon: 0).async()
         
@@ -53,7 +53,7 @@ struct WeatherAPIServiceTests {
     
     @Test("Failed to fetch weather detail")
     func testFetchWeatherDetailFailed() async throws {
-        let service = MockWeatherAPIService(shouldFail: true)
+        let service = MockOpenWeatherMapService(shouldFail: true)
         
         await #expect(throws: WeatherError.fetchFailed) {
             _ = try await service.fetchWeatherDetail(lat: 0, lon: 0).async()
@@ -62,7 +62,7 @@ struct WeatherAPIServiceTests {
     
     @Test("Successfully search cities")
     func testSearchCities() async throws {
-        let service = MockWeatherAPIService()
+        let service = MockOpenWeatherMapService()
         
         let cities = try await service.searchCities(query: "Test").async()
         
@@ -74,7 +74,7 @@ struct WeatherAPIServiceTests {
     
     @Test("Failed to search cities")
     func testSearchCitiesFailed() async throws {
-        let service = MockWeatherAPIService(shouldFail: true)
+        let service = MockOpenWeatherMapService(shouldFail: true)
         
         await #expect(throws: WeatherError.fetchFailed) {
             _ = try await service.searchCities(query: "Test").async()

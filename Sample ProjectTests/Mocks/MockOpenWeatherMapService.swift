@@ -1,5 +1,5 @@
 //
-//  MockWeatherAPIService.swift
+//  MockOpenWeatherMapService.swift
 //  Sample ProjectTests
 //
 //  Created by Arrinal S on 14/12/24.
@@ -9,7 +9,7 @@ import Foundation
 import Combine
 @testable import Sample_Project
 
-class MockWeatherAPIService: WeatherAPIService {
+class MockOpenWeatherMapService: OpenWeatherMapService {
     private let shouldFail: Bool
     
     init(shouldFail: Bool = false) {

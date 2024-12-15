@@ -39,7 +39,7 @@ struct WeatherListView: View {
                 }
             }
             .sheet(isPresented: $showingAddCity) {
-                AddCityView { city in
+                AddCityView(viewModel: DIContainer.shared.container.resolve(AddCityViewModel.self)!) { city in
                     viewModel.addCity(city)
                 }
             }

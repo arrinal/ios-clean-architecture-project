@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class WeatherRepositoryImpl: WeatherRepository {
-    private let apiService: WeatherAPIService
+    private let apiService: OpenWeatherMapService
     
-    init(apiService: WeatherAPIService) {
+    init(apiService: OpenWeatherMapService) {
         self.apiService = apiService
     }
     
