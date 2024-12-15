@@ -14,11 +14,11 @@ class AddCityViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: String?
     
-    private let searchCityUseCase: SearchCityUseCase
+    private let searchCitiesUseCase: SearchCitiesUseCase
     private var searchCancellable: AnyCancellable?
     
-    init(searchCityUseCase: SearchCityUseCase) {
-        self.searchCityUseCase = searchCityUseCase
+    init(searchCitiesUseCase: SearchCitiesUseCase) {
+        self.searchCitiesUseCase = searchCitiesUseCase
         
         searchCancellable = $searchText
             .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
@@ -29,7 +29,7 @@ class AddCityViewModel: ObservableObject {
             })
             .flatMap { [weak self] query -> AnyPublisher<[CityResponse], Never> in
                 guard let self = self else { return Just([]).eraseToAnyPublisher() }
-                return self.searchCityUseCase.execute(query: query)
+                return self.searchCitiesUseCase.execute(query: query)
                     .catch { error -> AnyPublisher<[CityResponse], Never> in
                         self.error = error.localizedDescription
                         return Just([]).eraseToAnyPublisher()

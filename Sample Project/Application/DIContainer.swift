@@ -27,9 +27,9 @@ class DIContainer {
     }
     
     private func registerRepositories() {
-        container.register(WeatherRepository.self) { resolver in
+        container.register(FetchWeatherRepository.self) { resolver in
             let apiService = resolver.resolve(OpenWeatherMapService.self)!
-            return WeatherRepositoryImpl(apiService: apiService)
+            return FetchWeatherRepositoryImpl(apiService: apiService)
         }.inObjectScope(.container)
         
         container.register(SearchCitiesRepository.self) { resolver in
@@ -46,13 +46,13 @@ class DIContainer {
     
     private func registerUseCases() {
         container.register(FetchWeatherUseCase.self) { resolver in
-            let repository = resolver.resolve(WeatherRepository.self)!
+            let repository = resolver.resolve(FetchWeatherRepository.self)!
             return FetchWeatherUseCaseImpl(repository: repository)
         }
         
-        container.register(SearchCityUseCase.self) { resolver in
+        container.register(SearchCitiesUseCase.self) { resolver in
             let repository = resolver.resolve(SearchCitiesRepository.self)!
-            return SearchCityUseCaseImpl(repository: repository)
+            return SearchCitiesUseCaseImpl(repository: repository)
         }
     }
     
@@ -66,8 +66,8 @@ class DIContainer {
         
         // Register AddCityViewModel
         container.register(AddCityViewModel.self) { resolver in
-            let useCase = resolver.resolve(SearchCityUseCase.self)!
-            return AddCityViewModel(searchCityUseCase: useCase)
+            let useCase = resolver.resolve(SearchCitiesUseCase.self)!
+            return AddCityViewModel(searchCitiesUseCase: useCase)
         }
         
         // Register WeatherDetailViewModel

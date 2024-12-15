@@ -57,7 +57,7 @@ Backend service repository: [sample-service-swift-vapor](https://github.com/arri
 ### API Endpoints
 - `/api/v1/openweathermap.org/current-weather`: Get current weather
 - `/api/v1/openweathermap.org/current-forecast`: Get weather forecast
-- `/api/v1/openweathermap.org/search-city`: Search for cities
+- `/api/v1/openweathermap.org/search-cities`: Search for cities
 
 ## Dependencies
 

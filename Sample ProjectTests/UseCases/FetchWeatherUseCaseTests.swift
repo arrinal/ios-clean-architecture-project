@@ -15,7 +15,7 @@ struct FetchWeatherUseCaseTests {
     
     @Test("Successfully fetch weather")
     func testFetchWeather() async throws {
-        let repository = MockWeatherRepository()
+        let repository = MockFetchWeatherRepository()
         let useCase = FetchWeatherUseCaseImpl(repository: repository)
         
         let weather = try await useCase.execute(lat: 0, lon: 0, cityName: "Test").async()
@@ -30,7 +30,7 @@ struct FetchWeatherUseCaseTests {
     
     @Test("Failed to fetch weather")
     func testFetchWeatherFailed() async throws {
-        let repository = MockWeatherRepository(shouldFail: true)
+        let repository = MockFetchWeatherRepository(shouldFail: true)
         let useCase = FetchWeatherUseCaseImpl(repository: repository)
         
         await #expect(throws: WeatherError.fetchFailed) {
@@ -40,7 +40,7 @@ struct FetchWeatherUseCaseTests {
     
     @Test("Successfully fetch weather detail")
     func testFetchWeatherDetail() async throws {
-        let repository = MockWeatherRepository()
+        let repository = MockFetchWeatherRepository()
         let useCase = FetchWeatherUseCaseImpl(repository: repository)
         
         let detail = try await useCase.executeDetail(lat: 0, lon: 0, cityName: "Test").async()
@@ -52,7 +52,7 @@ struct FetchWeatherUseCaseTests {
     
     @Test("Failed to fetch weather detail")
     func testFetchWeatherDetailFailed() async throws {
-        let repository = MockWeatherRepository(shouldFail: true)
+        let repository = MockFetchWeatherRepository(shouldFail: true)
         let useCase = FetchWeatherUseCaseImpl(repository: repository)
         
         await #expect(throws: WeatherError.fetchFailed) {

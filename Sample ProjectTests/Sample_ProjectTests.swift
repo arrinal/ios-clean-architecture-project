@@ -12,7 +12,7 @@ import Combine
 // MARK: - FetchWeatherUseCase Tests
 @Test("FetchWeatherUseCase executes successfully")
 func testFetchWeatherSuccess() async throws {
-    let mockRepository = MockWeatherRepository()
+    let mockRepository = MockFetchWeatherRepository()
     let useCase = FetchWeatherUseCaseImpl(repository: mockRepository)
     
     let weather = try await useCase.execute(lat: 0, lon: 0, cityName: "Test").async()
@@ -22,7 +22,7 @@ func testFetchWeatherSuccess() async throws {
 
 @Test("FetchWeatherUseCase handles error")
 func testFetchWeatherError() async throws {
-    let mockRepository = MockWeatherRepository(shouldFail: true)
+    let mockRepository = MockFetchWeatherRepository(shouldFail: true)
     let useCase = FetchWeatherUseCaseImpl(repository: mockRepository)
     
     await #expect(throws: WeatherError.fetchFailed) {
@@ -32,7 +32,7 @@ func testFetchWeatherError() async throws {
 
 @Test("FetchWeatherUseCase fetches detail successfully")
 func testFetchWeatherDetailSuccess() async throws {
-    let mockRepository = MockWeatherRepository()
+    let mockRepository = MockFetchWeatherRepository()
     let useCase = FetchWeatherUseCaseImpl(repository: mockRepository)
     
     let detail = try await useCase.executeDetail(lat: 0, lon: 0, cityName: "Test").async()

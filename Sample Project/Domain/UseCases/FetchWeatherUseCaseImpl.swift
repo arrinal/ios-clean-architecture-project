@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class FetchWeatherUseCaseImpl: FetchWeatherUseCase {
-    private let repository: WeatherRepository
+    private let repository: FetchWeatherRepository
     
-    init(repository: WeatherRepository) {
+    init(repository: FetchWeatherRepository) {
         self.repository = repository
     }
     

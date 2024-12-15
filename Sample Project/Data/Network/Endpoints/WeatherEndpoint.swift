@@ -21,7 +21,7 @@ extension WeatherEndpoint: Endpoint {
         case .weatherDetail:
             return "/openweathermap.org/current-forecast"
         case .searchCities:
-            return "/openweathermap.org/search-city"
+            return "/openweathermap.org/search-cities"
         }
     }
     

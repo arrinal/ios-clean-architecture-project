@@ -1,5 +1,5 @@
 //
-//  WeatherRepositoryImpl.swift
+//  FetchWeatherRepositoryImpl.swift
 //  Sample Project
 //
 //  Created by Arrinal S on 14/12/24.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class WeatherRepositoryImpl: WeatherRepository {
+class FetchWeatherRepositoryImpl: FetchWeatherRepository {
     private let apiService: OpenWeatherMapService
     
     init(apiService: OpenWeatherMapService) {

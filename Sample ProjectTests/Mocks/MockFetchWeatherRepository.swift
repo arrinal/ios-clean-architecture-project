@@ -1,5 +1,5 @@
 //
-//  MockWeatherRepository.swift
+//  MockFetchWeatherRepository.swift
 //  Sample ProjectTests
 //
 //  Created by Arrinal S on 14/12/24.
@@ -9,7 +9,7 @@ import Foundation
 import Combine
 @testable import Sample_Project
 
-class MockWeatherRepository: WeatherRepository {
+class MockFetchWeatherRepository: FetchWeatherRepository {
     private let shouldFail: Bool
     private let delay: TimeInterval
     
