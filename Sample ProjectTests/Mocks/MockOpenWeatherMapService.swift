@@ -22,10 +22,18 @@ class MockOpenWeatherMapService: OpenWeatherMapService {
         }
         
         let response = WeatherResponse(
-            name: "Test City",
-            main: .init(temp: 25.0, humidity: 60),
-            weather: [.init(description: "Sunny", icon: "01d")],
-            wind: .init(speed: 5.0)
+            coord: .init(lon: lon, lat: lat),
+            weather: [.init(id: 800, main: "Clear", description: "Sunny", icon: "01d")],
+            base: "stations",
+            main: .init(temp: 25.0, feelsLike: 26.0, tempMin: 24.0, tempMax: 26.0, pressure: 1013, humidity: 60, seaLevel: nil, groundLevel: nil),
+            visibility: 10000,
+            wind: .init(speed: 5.0, deg: 120, gust: nil),
+            clouds: .init(all: 0),
+            dt: Int(Date().timeIntervalSince1970),
+            sys: .init(sunrise: Int(Date().timeIntervalSince1970), sunset: Int(Date().timeIntervalSince1970 + 43200)),
+            timezone: 25200,
+            id: 123456,
+            name: "Test City"
         )
         
         return Just(response)
@@ -40,9 +48,29 @@ class MockOpenWeatherMapService: OpenWeatherMapService {
         
         let forecastItem = WeatherDetailResponse.ForecastItem(
             dt: Date().timeIntervalSince1970,
-            main: .init(temp: 25.0, humidity: 60),
-            weather: [.init(description: "Sunny", icon: "01d")],
-            wind: .init(speed: 5.0)
+            main: WeatherResponse.MainWeather(
+                temp: 25.0,
+                feelsLike: 26.0,
+                tempMin: 24.0,
+                tempMax: 26.0,
+                pressure: 1013,
+                humidity: 60,
+                seaLevel: nil,
+                groundLevel: nil
+            ),
+            weather: [
+                WeatherResponse.WeatherDescription(
+                    id: 800,
+                    main: "Clear",
+                    description: "Sunny",
+                    icon: "01d"
+                )
+            ],
+            wind: WeatherResponse.Wind(
+                speed: 5.0,
+                deg: 120,
+                gust: nil
+            )
         )
         
         let response = WeatherDetailResponse(
