@@ -8,19 +8,7 @@
 import SwiftUI
 
 struct WeatherStatisticsView: View {
-    let cityName: String
-    @StateObject private var viewModel: WeatherStatisticsViewModel
-    
-    init(cityName: String, lat: Double, lon: Double) {
-        self.cityName = cityName
-        let useCase = DIContainer.shared.container.resolve(FetchWeatherUseCase.self)!
-        _viewModel = StateObject(wrappedValue: WeatherStatisticsViewModel(
-            cityName: cityName,
-            lat: lat,
-            lon: lon,
-            fetchWeatherUseCase: useCase
-        ))
-    }
+    @StateObject var viewModel: WeatherStatisticsViewModel
     
     var body: some View {
         ScrollView {
@@ -51,7 +39,7 @@ struct WeatherStatisticsView: View {
             }
             .padding()
         }
-        .navigationTitle("\(cityName) Statistics")
+        .navigationTitle("\(viewModel.weather.cityName) Statistics")
         .alert("Error", isPresented: .constant(viewModel.error != nil)) {
             Button("OK") {
                 viewModel.error = nil

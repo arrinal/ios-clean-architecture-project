@@ -15,16 +15,12 @@ class WeatherStatisticsViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: String?
     
-    private let cityName: String
-    private let lat: Double
-    private let lon: Double
+    let weather: Weather
     private let fetchWeatherUseCase: FetchWeatherUseCase
     private var cancellables = Set<AnyCancellable>()
     
-    init(cityName: String, lat: Double, lon: Double, fetchWeatherUseCase: FetchWeatherUseCase) {
-        self.cityName = cityName
-        self.lat = lat
-        self.lon = lon
+    init(weather: Weather, fetchWeatherUseCase: FetchWeatherUseCase) {
+        self.weather = weather
         self.fetchWeatherUseCase = fetchWeatherUseCase
         fetchStatistics()
     }
@@ -32,7 +28,7 @@ class WeatherStatisticsViewModel: ObservableObject {
     private func fetchStatistics() {
         isLoading = true
         
-        fetchWeatherUseCase.executeDetail(lat: lat, lon: lon, cityName: cityName)
+        fetchWeatherUseCase.executeDetail(lat: weather.lat, lon: weather.lon, cityName: weather.cityName)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { [weak self] completion in

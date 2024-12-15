@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct WeatherListView: View {
-    @StateObject private var viewModel: WeatherListViewModel
+    @StateObject var viewModel: WeatherListViewModel
     @State private var showingAddCity = false
-    
-    init(viewModel: WeatherListViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(viewModel.cities) { weather in
-                    NavigationLink(destination: WeatherDetailView(cityName: weather.cityName, lat: weather.lat, lon: weather.lon)) {
+                    NavigationLink(
+                        destination: WeatherDetailView(
+                            viewModel: DIContainer.shared.container.resolve(
+                                WeatherDetailViewModel.self,
+                                argument: weather
+                            )!
+                        )
+                    ) {
                         WeatherRowView(weather: weather)
                     }
                 }

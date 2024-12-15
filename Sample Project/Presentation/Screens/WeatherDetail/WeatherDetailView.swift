@@ -8,18 +8,7 @@
 import SwiftUI
 
 struct WeatherDetailView: View {
-    let cityName: String
-    let lat: Double
-    let lon: Double
-    @StateObject private var viewModel: WeatherDetailViewModel
-    
-    init(cityName: String, lat: Double, lon: Double) {
-        self.cityName = cityName
-        self.lat = lat
-        self.lon = lon
-        let useCase = DIContainer.shared.container.resolve(FetchWeatherUseCase.self)!
-        _viewModel = StateObject(wrappedValue: WeatherDetailViewModel(cityName: cityName, lat: lat, lon: lon, fetchWeatherUseCase: useCase))
-    }
+    @StateObject var viewModel: WeatherDetailViewModel
     
     var body: some View {
         ScrollView {
@@ -30,7 +19,12 @@ struct WeatherDetailView: View {
                     
                     // Statistics Button
                     NavigationLink {
-                        WeatherStatisticsView(cityName: cityName, lat: lat, lon: lon)
+                        WeatherStatisticsView(
+                            viewModel: DIContainer.shared.container.resolve(
+                                WeatherStatisticsViewModel.self,
+                                argument: viewModel.weather
+                            )!
+                        )
                     } label: {
                         HStack {
                             Image(systemName: "chart.bar.fill")
@@ -65,7 +59,7 @@ struct WeatherDetailView: View {
                 ProgressView()
             }
         }
-        .navigationTitle(cityName)
+        .navigationTitle(viewModel.weather.cityName)
         .alert("Error", isPresented: .constant(viewModel.error != nil)) {
             Button("OK") {
                 viewModel.error = nil

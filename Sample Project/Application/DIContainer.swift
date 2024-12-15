@@ -55,15 +55,15 @@ class DIContainer {
         }
         
         // Register WeatherDetailViewModel
-        container.register(WeatherDetailViewModel.self) { (resolver, cityName: String, lat: Double, lon: Double) in
+        container.register(WeatherDetailViewModel.self) { (resolver, weather: Weather) in
             let useCase = resolver.resolve(FetchWeatherUseCase.self)!
-            return WeatherDetailViewModel(cityName: cityName, lat: lat, lon: lon, fetchWeatherUseCase: useCase)
+            return WeatherDetailViewModel(weather: weather, fetchWeatherUseCase: useCase)
         }
         
         // Register WeatherStatisticsViewModel
-        container.register(WeatherStatisticsViewModel.self) { (resolver, cityName: String, lat: Double, lon: Double) in
+        container.register(WeatherStatisticsViewModel.self) { (resolver, weather: Weather) in
             let useCase = resolver.resolve(FetchWeatherUseCase.self)!
-            return WeatherStatisticsViewModel(cityName: cityName, lat: lat, lon: lon, fetchWeatherUseCase: useCase)
+            return WeatherStatisticsViewModel(weather: weather, fetchWeatherUseCase: useCase)
         }
     }
 }
