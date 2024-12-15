@@ -31,6 +31,8 @@ The project follows Clean Architecture principles with the following layers:
   - `/Models`: Data transfer objects
   - `/Repositories`: Repository implementations
   - `/Storage`: Local storage implementations
+  - `/Base`: Base networking (BaseService)
+  - `/Endpoints`: API endpoints
 
 ### Presentation Layer
 - Contains UI-related code
@@ -41,7 +43,7 @@ The project follows Clean Architecture principles with the following layers:
 ### Application Layer
 - Contains app-wide configurations
 - Located in `/Application` directory
-  - Dependency injection setup
+  - DIContainer: Dependency injection setup
   - App lifecycle management
 
 ## Backend Service
@@ -114,24 +116,28 @@ Sample Project/
 │   │   ├── Endpoints/
 │   │   │   ├── Endpoint.swift
 │   │   │   └── WeatherEndpoint.swift
-│   │   └── WeatherAPIService.swift
+│   │   └── OpenWeatherMapService.swift
 │   ├── Models/
 │   │   ├── BaseServiceResponse.swift
 │   │   ├── CityResponse.swift
 │   │   └── WeatherResponse.swift
 │   ├── Repositories/
-│   │   └── WeatherRepositoryImpl.swift
+│   │   ├── FetchWeatherRepositoryImpl.swift
+│   │   └── SearchCitiesRepositoryImpl.swift
 │   └── Storage/
 │       └── UserDefaultsWeatherStorageImpl.swift
 ├── Domain/
 │   ├── Entities/
 │   │   └── Weather.swift
 │   ├── Interfaces/
+│   │   ├── FetchWeatherRepository.swift
 │   │   ├── FetchWeatherUseCase.swift
-│   │   ├── WeatherRepository.swift
+│   │   ├── SearchCitiesRepository.swift
+│   │   ├── SearchCitiesUseCase.swift
 │   │   └── WeatherStorage.swift
 │   └── UseCases/
-│       └── FetchWeatherUseCaseImpl.swift
+│       ├── FetchWeatherUseCaseImpl.swift
+│       └── SearchCitiesUseCaseImpl.swift
 └── Presentation/
     ├── Screens/
     │   ├── AddCity/
@@ -143,6 +149,7 @@ Sample Project/
     │   └── WeatherStatistics/
     │       └── WeatherStatisticsView.swift
     └── ViewModels/
+        ├── AddCityViewModel.swift
         ├── WeatherDetailViewModel.swift
         ├── WeatherListViewModel.swift
         └── WeatherStatisticsViewModel.swift
