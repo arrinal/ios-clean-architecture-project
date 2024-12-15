@@ -160,9 +160,9 @@ Sample Project/
    - Update the backend service URL if needed
    - Build and run the project
 
-## Requirements
+## Project Specifications
 
-- iOS 15.0+
-- Xcode 13.0+
-- Swift 5.5+
+- iOS 18.0+
+- Xcode 16.0+
+- Swift 6+
 - Vapor 4.0+ (for backend service)
