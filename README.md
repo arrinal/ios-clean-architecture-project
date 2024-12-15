@@ -1,15 +1,16 @@
 # Weather App - Clean Architecture with SwiftUI
 
-A weather application built using SwiftUI and following Clean Architecture principles. The app demonstrates the implementation of SOLID principles, dependency injection, and reactive programming with Combine.
+A weather application built using SwiftUI and following Clean Architecture principles. The app demonstrates the implementation of SOLID principles, dependency injection, and reactive programming with Combine, backed by a Swift Vapor backend service.
 
 ## Features
 
-- View weather information for multiple cities
-- Add new cities through search
-- View detailed weather information including hourly forecasts
+- View current weather information for cities
+- Search and add new cities
+- View detailed weather forecasts
 - View weather statistics (temperature, humidity, wind speed)
 - Persistent storage of favorite cities
 - Offline support for previously loaded cities
+- Backend service for API handling and data transformation
 
 ## Architecture
 
@@ -26,7 +27,7 @@ The project follows Clean Architecture principles with the following layers:
 ### Data Layer
 - Implements data operations
 - Located in `/Data` directory
-  - `/Network`: API services
+  - `/Network`: API services and endpoints
   - `/Models`: Data transfer objects
   - `/Repositories`: Repository implementations
   - `/Storage`: Local storage implementations
@@ -43,12 +44,34 @@ The project follows Clean Architecture principles with the following layers:
   - Dependency injection setup
   - App lifecycle management
 
+## Backend Service
+
+Built with Swift Vapor, the backend service provides:
+- Weather data from OpenWeatherMap API
+- City search functionality
+- Current weather and forecast endpoints
+- Standardized API response format
+
+Backend service repository: [sample-service-swift-vapor](https://github.com/arrinal/sample-service-swift-vapor)
+
+### API Endpoints
+- `/api/v1/openweathermap.org/current-weather`: Get current weather
+- `/api/v1/openweathermap.org/current-forecast`: Get weather forecast
+- `/api/v1/openweathermap.org/search-city`: Search for cities
+
 ## Dependencies
 
+### iOS App
 - **SwiftUI**: UI framework
 - **Combine**: Reactive programming
 - **Swinject**: Dependency injection
+- **BaseService**: Network layer abstraction
 - **OpenWeatherMap API**: Weather data source
+
+### Backend Service
+- **Vapor**: Server-side Swift framework
+- **async/await**: Asynchronous programming
+- **OpenWeatherMap API**: Weather data provider
 
 ## Key Design Decisions
 
@@ -58,31 +81,25 @@ The project follows Clean Architecture principles with the following layers:
    - Domain layer is independent
 
 2. **Dependency Injection**
-   - Using Swinject for DI
+   - Using Swinject for DI container
    - Centralized container management
-   - Easy testing and modification
+   - Singleton pattern for shared container
+   - Scoped object instances
 
 3. **Reactive Programming**
    - Using Combine for async operations
    - Reactive data flow
    - Error handling
 
-4. **Local Storage**
+4. **Backend Integration**
+   - Dedicated Swift Vapor service
+   - Standardized API responses
+   - Error handling and data transformation
+
+5. **Local Storage**
    - UserDefaults for city persistence
    - Offline-first approach
    - Automatic saving of added cities
-
-## Getting Started
-
-1. Clone the repository
-2. Replace the API key in `WeatherAPIServiceImpl` with your OpenWeatherMap API key
-3. Build and run the project
-
-## Requirements
-
-- iOS 15.0+
-- Xcode 13.0+
-- Swift 5.5+
 
 ## Project Structure
 
@@ -92,35 +109,60 @@ Sample Project/
 │   └── DIContainer.swift
 ├── Data/
 │   ├── Network/
+│   │   ├── Base/
+│   │   │   └── BaseService.swift
+│   │   ├── Endpoints/
+│   │   │   ├── Endpoint.swift
+│   │   │   └── WeatherEndpoint.swift
 │   │   └── WeatherAPIService.swift
 │   ├── Models/
+│   │   ├── BaseServiceResponse.swift
 │   │   ├── CityResponse.swift
 │   │   └── WeatherResponse.swift
 │   ├── Repositories/
 │   │   └── WeatherRepositoryImpl.swift
 │   └── Storage/
-│       └── UserDefaultsWeatherStorage.swift
+│       └── UserDefaultsWeatherStorageImpl.swift
 ├── Domain/
 │   ├── Entities/
 │   │   └── Weather.swift
 │   ├── Interfaces/
+│   │   ├── FetchWeatherUseCase.swift
 │   │   ├── WeatherRepository.swift
-│   │   ├── WeatherStorage.swift
-│   │   └── FetchWeatherUseCase.swift
+│   │   └── WeatherStorage.swift
 │   └── UseCases/
 │       └── FetchWeatherUseCaseImpl.swift
 └── Presentation/
     ├── Screens/
     │   ├── AddCity/
+    │   │   └── AddCityView.swift
     │   ├── WeatherDetail/
+    │   │   └── WeatherDetailView.swift
     │   ├── WeatherList/
+    │   │   └── WeatherListView.swift
     │   └── WeatherStatistics/
+    │       └── WeatherStatisticsView.swift
     └── ViewModels/
         ├── WeatherDetailViewModel.swift
         ├── WeatherListViewModel.swift
         └── WeatherStatisticsViewModel.swift
 ```
 
-## License
+## Getting Started
 
-This project is available under the MIT license.
+1. Clone the repository
+2. Set up the backend service:
+   - Navigate to the `Backend Swift Vapor` directory
+   - Add your OpenWeatherMap API key to the environment
+   - Run `swift run` to start the server
+3. Set up the iOS app:
+   - Open the Xcode project
+   - Update the backend service URL if needed
+   - Build and run the project
+
+## Requirements
+
+- iOS 15.0+
+- Xcode 13.0+
+- Swift 5.5+
+- Vapor 4.0+ (for backend service)
